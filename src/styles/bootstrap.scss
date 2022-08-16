@@ -1,0 +1,56 @@
+@import "bootstrap/scss/bootstrap";
+
+$theme-colors: (
+  "primary": #3F8CD6,
+  "accent": #3177BA,
+  "dark": #2C669E,
+  "bs-btn-color": #3F8CD6,
+);
+
+.btn.btn-normal {
+  border-radius: 16px;
+  padding: 16px 32px;
+  gap: 10px;
+}
+
+.btn.btn-medium {
+  border-radius: 16px;
+  padding: 16px 32px;
+  gap: 10px;
+}
+
+.btn.btn-small {
+  border-radius: 16px;
+  padding: 12px 24px;
+  gap: 10px;
+}
+
+.btn.btn-extra-small {
+  border-radius: 16px;
+  padding: 8px 24px;
+  gap: 10px;
+}
+
+.form-control {
+  background: #F0F6FC;
+  padding: 16px 20px;
+  border: 1px solid #F7FAFC;
+  border-radius: 12px;
+}
+
+.form-control:hover {
+  background: #F0F6FC;
+  border: 1px solid #E0E4ED;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  background: #F0F6FC;
+  border: 1px solid #A0AAC6;
+  box-shadow: none;
+}
+
+@import "./fonts.scss";
+* {
+  font-family: "Gilroy", sans-serif !important
+}
