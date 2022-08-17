@@ -1,13 +1,28 @@
 @import "bootstrap/scss/bootstrap";
+@import 'react-bootstrap-sidebar-menu/dist/sidebar-menu.scss';
 
 $theme-colors: (
   "primary": #3F8CD6,
   "accent": #3177BA,
   "dark": #2C669E,
   "bs-btn-color": #3F8CD6,
+  "background-white": #fff,
+  "background-primary": #F7F8FA,
+  "neutral-primary": #A0AAC6,
+  "text-heading": #193856,
+  "text-secondary": #4E5467,
 );
 
+h1,h2,h3,h4,h5,h6 {
+  color: #{map-get($theme-colors, 'text-heading')};
+}
+
+h--secondary {
+  color: #{map-get($theme-colors, 'text-secondary')};
+}
+
 .btn.btn-normal {
+  border: 0;
   border-radius: 16px;
   padding: 16px 32px;
   gap: 10px;
@@ -31,6 +46,10 @@ $theme-colors: (
   gap: 10px;
 }
 
+.btn-primary {
+  --bs-btn-bg: #{map-get($theme-colors, "primary")};
+}
+
 .form-control {
   background: #F0F6FC;
   padding: 16px 20px;
@@ -48,6 +67,29 @@ $theme-colors: (
   background: #F0F6FC;
   border: 1px solid #A0AAC6;
   box-shadow: none;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background-color: #{map-get($theme-colors, "background-primary")};
+}
+
+.cont--fluid {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 56px);
+}
+
+.navbar {
+  flex-shrink: 0;
+  background-color: #{map-get($theme-colors, "background-white")};
+}
+
+.placeholder-description {
+  color: #{map-get($theme-colors, "neutral-primary")};
 }
 
 @import "./fonts.scss";
