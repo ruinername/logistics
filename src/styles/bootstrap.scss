@@ -1,5 +1,4 @@
 @import "bootstrap/scss/bootstrap";
-@import 'react-bootstrap-sidebar-menu/dist/sidebar-menu.scss';
 
 $theme-colors: (
   "primary": #3F8CD6,
@@ -8,9 +7,12 @@ $theme-colors: (
   "bs-btn-color": #3F8CD6,
   "background-white": #fff,
   "background-primary": #F7F8FA,
-  "neutral-primary": #A0AAC6,
   "text-heading": #193856,
   "text-secondary": #4E5467,
+  "text-primary": #132A40,
+  "neutral-primary": #A0AAC6,
+  "neutral-light": #E0E4ED,
+  "neutral-accent": #858DA6,
 );
 
 h1,h2,h3,h4,h5,h6 {
@@ -19,6 +21,12 @@ h1,h2,h3,h4,h5,h6 {
 
 h--secondary {
   color: #{map-get($theme-colors, 'text-secondary')};
+}
+
+.btn {
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .btn.btn-normal {
@@ -90,6 +98,73 @@ body,
 
 .placeholder-description {
   color: #{map-get($theme-colors, "neutral-primary")};
+}
+
+.card {
+  --bs-card-border-radius: 20px;
+  --bs-card-border-color: #{map-get($theme-colors, 'neutral-light')};
+  margin-bottom: 16px;
+}
+
+.truck.card-body {
+  padding: 32px 0;
+}
+
+.truck .card-subtitle {
+  font-family: 'Gotham Pro', serif !important;
+  font-size: 14px;
+  line-height: 22px;
+  color: #{map-get($theme-colors, 'text-primary')};
+  opacity: 0.4;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.truck .card-title {
+  margin-bottom: 0;
+  margin-left: 16px;
+}
+
+.truck .card-padding-h {
+  padding: 0 40px;
+}
+
+@media only screen and (min-device-width: 480px) {
+  .truck .card-padding-h {
+    padding: 0 24px;
+  }
+}
+
+.chevron.chevron-up {
+  transform: rotate(180deg);
+  transition-duration: 0.3s;
+}
+
+.files {
+  margin-top: 42px;
+}
+
+.file-tab {
+  cursor: pointer;
+  margin-right: 32px;
+}
+
+.file-tab.active {
+  border-bottom: 1px solid #3F8CD6;
+}
+
+.file-tab .label {
+  color: #{map-get($theme-colors, 'neutral-accent')};
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.chevron.chevron-down {
+  transition-duration: 0.3s;
 }
 
 @import "./fonts.scss";
