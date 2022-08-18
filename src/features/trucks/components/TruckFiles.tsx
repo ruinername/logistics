@@ -1,24 +1,59 @@
-import React from 'react';
-import { Truck } from "../../../store/api";
+import React, {useMemo} from 'react';
+import { apiEndpoint, Truck } from "../../../store/api";
+import {DocumentsBlue, Download, IconWithBackground} from "../../../assets/icons";
+import { DateTime } from 'luxon';
+import { Container } from "react-bootstrap";
 
 export interface TruckFilesProps {
   truck: Truck;
 }
 
-const truckFiles = {
-  'truck_registration_file': 'Truck registration',
-  'truck_inspection_file': 'Truck inspection',
-  'phycisal_damage_file': 'Physical damage',
-  'NY_file': 'NY',
-  'KY_file': 'KY',
-  'NM_file': 'NM',
-  'OR_file': 'OR',
-  'leaser_and_borrower_file': 'Leaser and borrower',
-  'driver_and_company_file': 'Driver and company',
-  'random_drug_test_exparation_file': 'Drug test'
+export const truckFiles = {
+  'truck_registration_file': {
+    name: 'Truck registration',
+    expiration: null,
+  },
+  'truck_inspection_file': {
+    name: 'Truck inspection',
+    expiration: 'truck_inspection_expiration',
+  },
+  'phycisal_damage_file': {
+    name: 'Physical damage',
+    expiration: 'physical_damage_expiration',
+  },
+  'NY_file': {
+    name: 'NY',
+    expiration: 'NY',
+  },
+  'KY_file': {
+    name: 'KY',
+    expiration: 'KY',
+  },
+  'NM_file': {
+    name: 'NM',
+    expiration: 'NM',
+  },
+  'OR_file': {
+    name: 'OR',
+    expiration: 'OR',
+  },
+  'leaser_and_borrower_file': {
+    name: 'Leaser and borrower',
+    expiration: null,
+  },
+  'driver_and_company_file': {
+    name: 'Driver and company',
+    expiration: null,
+  },
+  'random_drug_test_exparation_file': {
+    name: 'Drug test',
+    expiration: 'random_drug_test_exparation',
+  }
 };
 
-const tabs = [
+interface Tab {key: string, name: string, files: Partial<keyof typeof truckFiles>[]}
+
+const tabs: Tab[] = [
   {
     key: 'truck',
     name: 'Truck',
@@ -47,18 +82,76 @@ const tabs = [
 ];
 
 const TruckFiles: React.FC<TruckFilesProps> = ({ truck }) => {
-  const [activeTab, setActiveTab] = React.useState('truck');
+  const [activeTab, setActiveTab] = React.useState<string>('truck');
+
+  const activeTabFiles = useMemo(() => (tabs.find(tab => tab.key === activeTab) as Tab).files.filter(file => truck[file]), [activeTab, truck]);
 
   return (
-    <div className="files card-padding-h overflow-scroll d-flex flex-row">
-      {tabs.map(({ key, name, files }) => (
-        <div onClick={() => setActiveTab(key)} key={key} className={`file-tab ${activeTab === key ? 'active' : ''}`}>
-          <h5 className="label">
-            {name}
-          </h5>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="files card-padding-h overflow-scroll d-flex flex-row">
+        {tabs.map(({ key, name, files }) => (
+          <div onClick={() => setActiveTab(key)} key={key} className={`file-tab ${activeTab === key ? 'active' : ''}`}>
+            <h5 className="label">
+              {name} {files.reduce((acc, value) => truck[value] ? acc + 1 : acc, 0)}/{files.length}
+            </h5>
+          </div>
+        ))}
+      </div>
+      <div className="files-preview card-padding-h">
+        {activeTabFiles.length ? activeTabFiles.map((file, idx, arr) => {
+          return (
+            <div key={file} className={`file ${idx !== arr.length - 1 ? 'mb40px' : ''}`}>
+              <div className="d-flex flex-row">
+                <IconWithBackground>
+                  <DocumentsBlue />
+                </IconWithBackground>
+                <Container className="cont--fluid">
+                  <p className="mb-0 ml16px body-l">
+                    {truckFiles[file].name}
+                  </p>
+                  <p className="mb-0 ml16px body-m text-muted">
+                    {/* @ts-ignore */}
+                    {(truckFiles[file].expiration !== null && truck[truckFiles[file].expiration]) ? DateTime.fromISO(truck[file] as string).toFormat('MM / dd / yyyy') : null}
+                  </p>
+                </Container>
+                <a target="_blank" href={`${apiEndpoint}company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
+                  <Download />
+                </a>
+              </div>
+              {file === 'truck_registration_file' && (
+                <div className="mt18px d-flex flex-row">
+                  <div className="d-flex flex-row mr32px">
+                    <p className="mb-0 body-m mr4px text-muted">
+                      VIN
+                    </p>
+                    <p className="mb-0 body-m">
+                      {truck.vin}
+                    </p>
+                  </div>
+                  <div className="d-flex flex-row mr32px">
+                    <p className="mb-0 body-m mr4px text-muted">
+                      Number
+                    </p>
+                    <p className="mb-0 body-m">
+                      {truck.truck_number}
+                    </p>
+                  </div>
+                  <div className="d-flex flex-row">
+                    <p className="mb-0 body-m mr4px">
+                      {truck.year}
+                    </p>
+                    <p className="mb-0 body-m text-muted">
+                      Year
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        }
+        ) : <p className="mb-0 body-l text-neutral">No documents found</p>}
+      </div>
+    </>
   );
 }
 

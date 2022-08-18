@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+export const apiEndpoint = 'http://0.0.0.0:8000/';
+
 const injectedRtkApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://0.0.0.0:8000/',
+    baseUrl: apiEndpoint,
     credentials: 'include',
   }),
   endpoints: (build) => ({

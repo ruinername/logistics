@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import Trucks from "./Trucks";
+import AddTruck from "./AddTruck";
 
 function DashboardNavigation() {
   const [cookies] = useCookies(['current_user']);
@@ -17,6 +18,7 @@ function DashboardNavigation() {
       <Routes>
         <Route path="/" element={null} />
         <Route path="/trucks" element={<Trucks />} />
+        <Route path="/add-truck" element={<AddTruck />} />
       </Routes>
     </>
   );

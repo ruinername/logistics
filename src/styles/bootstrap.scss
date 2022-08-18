@@ -10,6 +10,7 @@ $theme-colors: (
   "text-heading": #193856,
   "text-secondary": #4E5467,
   "text-primary": #132A40,
+  "text-muted": #A0AAC6,
   "neutral-primary": #A0AAC6,
   "neutral-light": #E0E4ED,
   "neutral-accent": #858DA6,
@@ -142,6 +143,11 @@ body,
 
 .files {
   margin-top: 42px;
+  margin-bottom: 42px;
+}
+
+.file-text {
+  min-width: 500px;
 }
 
 .file-tab {
@@ -165,6 +171,90 @@ body,
 
 .chevron.chevron-down {
   transition-duration: 0.3s;
+}
+
+.icon-background {
+  background-color: #{map-get($theme-colors, 'background-primary')};
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.body-l {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: black;
+}
+
+.body-m {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #{map-get($theme-colors, 'text-secondary')};
+}
+
+.text-muted {
+  color: #{map-get($theme-colors, 'text-muted')};
+}
+
+.mt18px {
+  margin-top: 18px;
+}
+
+.ml16px {
+  margin-left: 16px;
+}
+
+.mb40px {
+  margin-bottom: 40px;
+}
+
+.mr4px {
+  margin-right: 4px;
+}
+
+.mr32px {
+  margin-right: 32px;
+}
+
+.text-neutral {
+    color: #{map-get($theme-colors, 'neutral-primary')};
+}
+
+a {
+  text-decoration: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 340px;
+  padding: 18px 32px;
+  margin-bottom: 8px;
+}
+
+.step .step-title {
+  font-family: 'Gotham Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #{map-get($theme-colors, 'text-primary')};
+}
+
+.step .step-icon {
+  margin-right: 18px;
+}
+
+.background-white {
+  background-color: white;
 }
 
 @import "./fonts.scss";

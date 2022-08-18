@@ -7,7 +7,7 @@ const Placeholder = () => {
       <div>
         <h2>It's empty here</h2>
         <p className="placeholder-description">Add your first truck</p>
-        <Button className="btn-normal">Add truck</Button>
+        <Button className="btn-normal d-inline">Add truck</Button>
       </div>
     </Container>
   );
