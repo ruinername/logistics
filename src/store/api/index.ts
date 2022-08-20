@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const apiEndpoint = 'http://0.0.0.0:8000/';
+export const apiEndpoint = 'https://docksys.co/';
 
 export const injectedRtkApi = createApi({
   baseQuery: fetchBaseQuery({

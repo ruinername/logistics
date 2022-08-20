@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {Cancel, IconWithBackground, QR} from "../../../assets/icons";
 import QRCode from "react-qr-code";
 
-const URI = `http://0.0.0.0:3000/dashboard/truck/`;
+const URI = `https://docksys.co/dashboard/truck/`;
 
 export const TruckQR: React.FC<{ truckVin: string; }> = ({truckVin}) => {
   const [show, setShow] = useState(false);
