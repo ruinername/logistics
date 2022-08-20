@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 
-export const IconWithBackground: React.FC<{ children: ReactNode }> = (props) => {
+export const IconWithBackground: React.FC<{ children: ReactNode, size?: number }> = ({ size = 48, children}) => {
   return (
-    <div className="icon-background">
-      {props.children}
+    <div style={{ height: size, width: size }} className="icon-background">
+      {children}
     </div>
   );
 }

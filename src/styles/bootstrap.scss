@@ -11,6 +11,7 @@ $theme-colors: (
   "text-secondary": #4E5467,
   "text-primary": #132A40,
   "text-muted": #A0AAC6,
+  "text-link": #3F8CD6,
   "neutral-primary": #A0AAC6,
   "neutral-light": #E0E4ED,
   "neutral-accent": #858DA6,
@@ -18,6 +19,14 @@ $theme-colors: (
 
 h1,h2,h3,h4,h5,h6 {
   color: #{map-get($theme-colors, 'text-heading')};
+}
+
+/* Heading/H2 */
+h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 h--secondary {
@@ -38,9 +47,15 @@ h--secondary {
 }
 
 .btn.btn-medium {
+  border: 0;
   border-radius: 16px;
   padding: 16px 32px;
   gap: 10px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .btn.btn-small {
@@ -95,6 +110,8 @@ body,
 .navbar {
   flex-shrink: 0;
   background-color: #{map-get($theme-colors, "background-white")};
+  box-shadow: 0px 1px 0px #F0F8FB;
+  color: #{map-get($theme-colors, "text-primary")};
 }
 
 .placeholder-description {
@@ -130,12 +147,6 @@ body,
   padding: 0 40px;
 }
 
-@media only screen and (min-device-width: 480px) {
-  .truck .card-padding-h {
-    padding: 0 24px;
-  }
-}
-
 .chevron.chevron-up {
   transform: rotate(180deg);
   transition-duration: 0.3s;
@@ -161,7 +172,6 @@ body,
 
 .file-tab .label {
   color: #{map-get($theme-colors, 'neutral-accent')};
-  font-family: 'Gilroy';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -175,8 +185,6 @@ body,
 
 .icon-background {
   background-color: #{map-get($theme-colors, 'background-primary')};
-  height: 48px;
-  width: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,6 +227,10 @@ body,
   margin-right: 4px;
 }
 
+.mr8px {
+  margin-right: 8px;
+}
+
 .mr32px {
   margin-right: 32px;
 }
@@ -231,6 +243,37 @@ a {
   text-decoration: none;
 }
 
+.steps {
+  margin-right: 48px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  gap: 10px;
+  border: 1px dashed #{map-get($theme-colors, 'neutral-primary')};
+  border-radius: 16px;
+}
+
+.custom-file-upload p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #{map-get($theme-colors, 'text-link')};
+}
+
 .step {
   display: flex;
   flex-direction: row;
@@ -238,10 +281,16 @@ a {
   width: 340px;
   padding: 18px 32px;
   margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.step.active {
+  background: rgba(240, 246, 252, 0.4);
+  border-right: 1px solid #{map-get($theme-colors, 'primary')};
 }
 
 .step .step-title {
-  font-family: 'Gotham Pro';
+  font-family: 'Gotham Pro', serif !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -255,6 +304,40 @@ a {
 
 .background-white {
   background-color: white;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@media only screen and (max-device-width: 708px) {
+  .truck .card-padding-h {
+    padding: 0 24px;
+  }
+  .steps {
+    margin-right: 0px;
+    display: flex;
+    overflow: scroll;
+    flex-direction: row;
+    margin-bottom: 32px;
+  }
+  .truck-form-container {
+    flex-direction: column;
+  }
+  .step {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    padding: 17px 36px;
+    cursor: pointer;
+    border-radius: 16px;
+    flex-shrink: 0;
+  }
+  .step.active {
+    background: rgba(240, 246, 252, 0.4);
+    border-right: 0px;
+  }
 }
 
 @import "./fonts.scss";

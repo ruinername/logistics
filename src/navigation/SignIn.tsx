@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import { Button, Form, Container, Row, Col, Alert } from "react-bootstrap";
-import { useSignInAuthSignInPostMutation } from "../store/api";
+import { useSignInCompanySignInPostMutation } from "../store/api";
 
 function SignIn() {
   const [mail, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [signIn, result] = useSignInAuthSignInPostMutation();
+  const [signIn, result] = useSignInCompanySignInPostMutation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn({ oAuth2PasswordRequestForm: { mail, password } });
+    signIn({ mail, password });
   }
 
   useEffect(() => {

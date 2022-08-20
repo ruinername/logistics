@@ -10,6 +10,8 @@ export { ReactComponent as Employee } from './employee.svg';
 export { ReactComponent as Ticket } from './ticket.svg';
 export { ReactComponent as Checkmark } from './check.svg';
 export { ReactComponent as Pill } from './pill.svg';
-
+export { ReactComponent as Back } from './back.svg';
+export { ReactComponent as User } from './user.svg';
+export { ReactComponent as Cancel } from './cancel.svg';
 
 export { IconWithBackground } from './IconWithBackground';

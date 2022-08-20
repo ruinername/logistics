@@ -26,7 +26,7 @@ const TruckCard: React.FC<TruckCardProps> = ({ truck }) => {
               <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-row align-items-center">
                   <FolderOpenFill />
-                  <Card.Title>VIN: {truck.vin}</Card.Title>
+                  <Card.Title>{truck.driver_name}</Card.Title>
                 </div>
               </div>
             </Col>
