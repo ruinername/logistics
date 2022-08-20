@@ -17,6 +17,8 @@ export { ReactComponent as Delete } from './delete.svg';
 export { ReactComponent as Pen } from './pen.svg';
 export { ReactComponent as Burger } from './burger.svg';
 export { ReactComponent as Replay } from './replay.svg';
+export { ReactComponent as QR } from './qr.svg';
+export { ReactComponent as Link } from './link.svg';
 export { AllCategories } from './AllCategories';
 export { SidebarTruck } from './SidebarTruck';
 

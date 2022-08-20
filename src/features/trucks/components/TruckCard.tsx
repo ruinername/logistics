@@ -2,10 +2,11 @@ import React, {useCallback, useMemo} from 'react';
 import {Button, Card, Col, Row} from "react-bootstrap";
 import { Truck } from "../../../store/api";
 import { ReactComponent as FolderOpenFill } from '../../../assets/icons/folder-open-fill.svg';
-import {ChevronDown, Documents, IconWithBackground, Pen} from "../../../assets/icons";
+import {ChevronDown, Documents, IconWithBackground, Pen, QR} from "../../../assets/icons";
 import TruckFiles, {truckFiles, verifyIsTruckOk} from "./TruckFiles";
 import {DeleteTruck} from "./DeleteTruck";
 import {Link} from "react-router-dom";
+import {TruckQR} from "./TruckQR";
 
 export interface TruckCardProps {
   truck: Truck;
@@ -35,7 +36,7 @@ const TruckCard: React.FC<TruckCardProps> = ({ truck, reloadTrucks }) => {
                 </div>
               </div>
             </Col>
-            <Col className="truck-mobile-margin" md={3}>
+            <Col className="truck-mobile-margin d-flex flex-row justify-content-between" md={4}>
               <div className="d-flex flex-row align-items-center">
                 <IconWithBackground>
                   <Documents />
@@ -44,8 +45,9 @@ const TruckCard: React.FC<TruckCardProps> = ({ truck, reloadTrucks }) => {
                   {Object.keys(truckFiles).reduce((acc, file) => (truck as any)[file] ? acc + 1 : acc, 0)}/10 documents
                 </p>
               </div>
+              <TruckQR truckVin={truck.vin as string} />
             </Col>
-            <Col md={4} className="d-flex flex-row align-items-center justify-content-between">
+            <Col md={3} className="d-flex flex-row align-items-center justify-content-between">
               <div className={`status body-m text-primary ${isTruckOk.isOk ? '' : 'problem'}`}>
                 status
               </div>

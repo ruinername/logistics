@@ -2,6 +2,7 @@
 
 $theme-colors: (
   "primary": #3F8CD6,
+  "primary-8%": #F0F6FC,
   "accent": #3177BA,
   "dark": #2C669E,
   "bs-btn-color": #3F8CD6,
@@ -403,6 +404,23 @@ input[type="file"] {
   color: #858DA6;
 }
 
+.qr-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #{map-get($theme-colors, 'primary-8%')};
+  border-radius: 24px;
+}
+
+.sign-in-button {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 @media only screen and (max-device-width: 708px) {
   .truck .card-padding-h {
     padding: 0 24px;
@@ -457,6 +475,10 @@ input[type="file"] {
   border-right: 1px solid #F0F8FB;
 }
 
+.truck-desktop-qr-margin {
+  margin-right: 60px;
+}
+
 @media only screen and (max-device-width: 767px) {
   .sidebar {
     width: 75%;
@@ -492,6 +514,9 @@ input[type="file"] {
   }
   .truck-mobile-margin {
     margin-bottom: 29px;
+  }
+  .truck-desktop-qr-margin {
+    margin-right: 0px;
   }
 }
 
