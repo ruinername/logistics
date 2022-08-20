@@ -7,6 +7,7 @@ export const injectedRtkApi = createApi({
     baseUrl: apiEndpoint,
     credentials: 'include',
   }),
+  tagTypes: ['Trucks'],
       endpoints: (build) => ({
         signUpCompanySignUpPost: build.mutation<
           SignUpCompanySignUpPostApiResponse,
@@ -101,6 +102,7 @@ export const injectedRtkApi = createApi({
               driver_name: queryArg.driverName,
             },
           }),
+          invalidatesTags: (result, error, arg) => [{ type: 'Trucks', id: 'LIST' }],
         }),
         updateTruckCompanyTruckUpdateTruckPut: build.mutation<
           UpdateTruckCompanyTruckUpdateTruckPutApiResponse,
@@ -138,6 +140,7 @@ export const injectedRtkApi = createApi({
               driver_name: queryArg.driverName,
             },
           }),
+          invalidatesTags: (result, error, arg) => [{ type: 'Trucks', id: 1 }],
         }),
         deleteTruckByVinCompanyTruckDeleteTruckByVinDelete: build.mutation<
           DeleteTruckByVinCompanyTruckDeleteTruckByVinDeleteApiResponse,
@@ -148,6 +151,7 @@ export const injectedRtkApi = createApi({
             method: "DELETE",
             params: { vin: queryArg.vin },
           }),
+          invalidatesTags: (result, error, arg) => [{ type: 'Trucks', id: 'LIST' }],
         }),
         getTrucksCompanyTruckGetTrucksGet: build.query<
           GetTrucksCompanyTruckGetTrucksGetApiResponse,
@@ -157,6 +161,7 @@ export const injectedRtkApi = createApi({
             url: `/company_truck/get_trucks/`,
             params: { left: queryArg.left, right: queryArg.right },
           }),
+          providesTags: (result, error, arg) => [{ type: 'Trucks', id: 'LIST' }],
         }),
         getTruckByVinCompanyTruckGetTruckByVinGet: build.query<
           GetTruckByVinCompanyTruckGetTruckByVinGetApiResponse,
@@ -479,3 +484,5 @@ export const {
   useGetTruckFileDriverGetTruckFileGetQuery,
   useDriverLogoutDriverDriverLogoutDeleteMutation,
 } = injectedRtkApi;
+
+export const fetchTrucks = () => injectedRtkApi.endpoints.getTrucksCompanyTruckGetTrucksGet.initiate({ left: 0, right: 100 });

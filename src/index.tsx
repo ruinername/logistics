@@ -14,13 +14,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <AppNavigation />
-        </BrowserRouter>
-      </Provider>
-    </CookiesProvider>
+    <Provider store={store}>
+      <CookiesProvider>
+          <BrowserRouter>
+            <AppNavigation />
+          </BrowserRouter>
+      </CookiesProvider>
+    </Provider>
   </React.StrictMode>
 );
 

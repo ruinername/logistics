@@ -11,7 +11,7 @@ export interface TruckFilesProps {
 export const truckFiles = {
   'truck_registration_file': {
     name: 'Truck registration',
-    expiration: null,
+    expiration: 'license_expiration',
   },
   'truck_inspection_file': {
     name: 'Truck inspection',

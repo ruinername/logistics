@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { api } from "./api";
+import { injectedRtkApi } from "./api";
+import {drawerSlice} from "./drawer";
 
 export const store = configureStore({
   reducer: {
     //user: userReducer,
-    [api.reducerPath]: api.reducer,
+    [injectedRtkApi.reducerPath]: injectedRtkApi.reducer,
+    drawer: drawerSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(injectedRtkApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

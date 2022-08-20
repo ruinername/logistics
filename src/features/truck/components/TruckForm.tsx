@@ -12,6 +12,7 @@ import {
 } from "../../../assets/icons";
 import {Dropzone} from "../../dropzone/Dropzone";
 import DocumentsBlue from "../../../assets/icons/documents-blue.svg";
+import { useNavigate } from 'react-router-dom';
 
 export type StepFields = ({
   name: string,
@@ -70,7 +71,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'License expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -118,7 +119,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Truck inspection expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -323,12 +324,17 @@ const formConstructor: FormConstructor = {
 export interface TruckFormProps {
   handleSave: (values: any, files: any) => void;
   title?: string;
+  isLoading?: boolean;
+  initialValues?: any;
+  isEditing?: boolean;
 }
 
 const TruckForm: React.FC<TruckFormProps> = (props) => {
   const [activeStep, setActiveStep] = React.useState('driver');
-  const [values, setValues] = React.useState<any>({ }); // TODO: typing
+  const [values, setValues] = React.useState<any>(props.initialValues || { }); // TODO: typing
   const [files, setFiles] = React.useState<any>({ }); // TODO: typing
+
+  const navigate = useNavigate();
 
   const handleSetActiveStep = useCallback((stepId: string) => () => setActiveStep(stepId), [setActiveStep]);
 
@@ -390,7 +396,7 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
   return (
     <div style={{ minHeight: '100%' }} className="background-white">
       <Container className="d-flex pt-4 flex-row justify-content-between align-items-center mb40px">
-        <span className="d-flex flex-row align-items-center">
+        <span onClick={() => navigate(-1)} className="d-flex flex-row align-items-center pointer">
           <Back className="mr8px" />
           <h2 className="mb-0">{props.title}</h2>
         </span>
@@ -418,7 +424,7 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
             {nextActiveField !== formConstructor.steps.length ? (
               <Button className="btn-medium float-end" variant="primary" onClick={() => setActiveStep(formConstructor.steps[nextActiveField].stepId)}>Next</Button>
             ) : (
-              <Button className="btn-medium float-end" variant="primary" onClick={() => props.handleSave(values, files)}>Save</Button>
+              <Button disabled={props.isLoading} className="btn-medium float-end" variant="primary" onClick={() => props.handleSave(values, files)}>Save</Button>
             )}
         </Container>
       </Container>
