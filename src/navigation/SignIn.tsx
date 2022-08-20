@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import { Button, Form, Container, Row, Col, Alert } from "react-bootstrap";
 import { useSignInCompanySignInPostMutation } from "../store/api";
+import {useWhiteBackground} from "../utils";
 
 function SignIn() {
+  useWhiteBackground();
   const [mail, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [signIn, result] = useSignInCompanySignInPostMutation();
@@ -26,7 +28,7 @@ function SignIn() {
   }
 
   return (
-    <Container className="mt-5">
+    <Container style={{ marginTop: 120 }}>
       <Row>
         <Col md={6}>
           <Form onSubmit={handleSubmit}>
@@ -38,9 +40,9 @@ function SignIn() {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control value={password} onChange={handlePasswordChange} type="password" placeholder="Enter password" />
-              <Button className="ml-auto" variant="link">
+      {/*        <Button className="ml-auto" variant="link">
                Forget password
-              </Button>
+              </Button>*/}
             </Form.Group>
             <div className="d-grid gap-2">
               <Button disabled={result.isLoading} className="btn-normal" variant="primary" type="submit">

@@ -13,6 +13,8 @@ const Sidebar = () => {
   const isDrawerOpened = useSelector(state => state.drawer.isOpen);
   const dispatch = useDispatch();
 
+  const isHomeActive = location.pathname === '/dashboard';
+
   if (!isOnDashboard) return null;
 
   return (
@@ -23,17 +25,17 @@ const Sidebar = () => {
           <h2>LG</h2>
           <div className="sidebar--menu">
             <Link to={'/dashboard'}>
-              <div className="sidebar--button pointer">
+              <div className={`sidebar--button pointer ${isHomeActive ? 'active' : ''}`}>
                 <div className="sidebar--icon">
-                  <AllCategories />
+                  <AllCategories fill={isHomeActive ? '#3F8CD6' : undefined} />
                 </div>
                 <span className="body-s text-neutral">Home</span>
               </div>
             </Link>
             <Link to={'/dashboard/trucks'}>
-              <div className="sidebar--button pointer">
+              <div className={`sidebar--button pointer ${!isHomeActive ? 'active' : ''}`}>
                 <div className="sidebar--icon">
-                  <SidebarTruck />
+                  <SidebarTruck fill={!isHomeActive ? '#3F8CD6' : undefined} />
                 </div>
                 <span className="body-s text-neutral">Park</span>
               </div>

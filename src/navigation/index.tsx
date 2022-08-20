@@ -11,7 +11,7 @@ function AppNavigation() {
   return (
     <div className="d-flex">
       <Sidebar />
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, maxWidth: '100%' }}>
         <Header />
         <Routes>
           <Route path="/" element={null} />

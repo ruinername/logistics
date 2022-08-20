@@ -409,6 +409,7 @@ export const injectedRtkApi = createApi({
       driver_and_company_file?: Blob;
       random_drug_test_exparation_file?: Blob;
     };
+
     export type Truck = {
       company_email?: string;
       truck_number?: string;

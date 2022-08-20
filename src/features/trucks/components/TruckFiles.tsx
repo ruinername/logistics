@@ -1,11 +1,17 @@
+// @ts-nocheck
+
+
 import React, {useMemo} from 'react';
 import { apiEndpoint, Truck } from "../../../store/api";
-import {DocumentsBlue, Download, IconWithBackground} from "../../../assets/icons";
+import {DocumentsBlue, Download, IconWithBackground, Replay} from "../../../assets/icons";
 import { DateTime } from 'luxon';
-import { Container } from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export interface TruckFilesProps {
   truck: Truck;
+  filesWithProblems: { [key as string]: boolean };
+  tabsWithProblems: { [key as string]: boolean };
 }
 
 export const truckFiles = {
@@ -81,7 +87,25 @@ const tabs: Tab[] = [
   }
 ];
 
-const TruckFiles: React.FC<TruckFilesProps> = ({ truck }) => {
+const dateFields = ['license_expiration', 'truck_inspection_expiration', 'physical_damage_expiration', 'random_drug_test_exparation', 'NY', 'KY', 'NM', 'OR']
+export function verifyIsTruckOk(truck: Truck) {
+  let isOk = true;
+  let tabsWithProblems = {};
+  let filesWithProblems = {};
+  dateFields.forEach((field) => {
+    if (truck[field] && DateTime.fromISO(truck[field]).diffNow().as('milliseconds') < 0) {
+      isOk = false;
+      const fileWithProblems = Object.entries(truckFiles).find(([key, data]) => data.expiration === field);
+      if (fileWithProblems) {
+        filesWithProblems[fileWithProblems[0]] = true;
+        tabsWithProblems[tabs.find(tab => tab.files.includes(fileWithProblems[0])).key] = true;
+      }
+    }
+  })
+  return { isOk, tabsWithProblems, filesWithProblems };
+}
+
+const TruckFiles: React.FC<TruckFilesProps> = ({ truck, tabsWithProblems, filesWithProblems }) => {
   const [activeTab, setActiveTab] = React.useState<string>('truck');
 
   const activeTabFiles = useMemo(() => (tabs.find(tab => tab.key === activeTab) as Tab).files.filter(file => truck[file]), [activeTab, truck]);
@@ -105,18 +129,27 @@ const TruckFiles: React.FC<TruckFilesProps> = ({ truck }) => {
                 <IconWithBackground>
                   <DocumentsBlue />
                 </IconWithBackground>
-                <Container className="cont--fluid">
-                  <p className="mb-0 ml16px body-l">
-                    {truckFiles[file].name}
-                  </p>
-                  <p className="mb-0 ml16px body-m text-muted">
-                    {/* @ts-ignore */}
-                    {(truckFiles[file].expiration !== null && truck[truckFiles[file].expiration]) ? DateTime.fromISO(truck[file] as string).toFormat('MM / dd / yyyy') : null}
-                  </p>
-                </Container>
-                <a target="_blank" href={`${apiEndpoint}company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
-                  <Download />
-                </a>
+                <Row className="container-fluid">
+                  <Col md={6}>
+                    <div>
+                      <p className="mb-0 ml16px body-l">
+                        {truckFiles[file].name}
+                      </p>
+                      <p className={`mb-0 ml16px body-m text-muted ${filesWithProblems[file] ? 'text-orange' : ''}`}>
+                        {/* @ts-ignore */}
+                        {(truckFiles[file].expiration !== null && truck[truckFiles[file].expiration]) ? DateTime.fromISO(truck[file] as string).toFormat('MM / dd / yyyy') : null}
+                      </p>
+                    </div>
+                  </Col>
+                  <Col md={3}>
+                    <Link style={{ marginRight: 20 }} to={'../edit-truck/' + truck.vin}>
+                      <Replay />
+                    </Link>
+                    <a target="_blank" href={`${apiEndpoint}company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
+                      <Download />
+                    </a>
+                  </Col>
+                </Row>
               </div>
               {file === 'truck_registration_file' && (
                 <div className="mt18px d-flex flex-row">

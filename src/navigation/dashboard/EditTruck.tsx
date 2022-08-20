@@ -20,7 +20,7 @@ function EditTruck() {
   const handleUpdateTruck = useCallback((values: any, files: any) => {
     let data = new FormData();
     Object.entries(files).forEach(([key, file]: any) => {
-      if (file) {
+      if (file instanceof File) {
         data.append(key, file);
       }
     });
@@ -35,9 +35,10 @@ function EditTruck() {
   }, [isSuccess]);
 
   if (!data) return null;
+  const initialFiles = data;
 
   return (
-    <TruckForm isEditing={true} initialValues={data} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
+    <TruckForm isEditing={true} initialValues={data} initialFiles={initialFiles} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
   );
 }
 

@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {Truck} from "./store/api";
 
 const toCamel = (s: any) => {
   return s.replace(/([-_][a-z])/ig, ($1: any) => {
@@ -55,4 +56,13 @@ export function useIsMobile() {
   }, [])
 
   return width <= 767;
+}
+
+export function useWhiteBackground() {
+  useEffect(() => {
+    document.body.style.backgroundColor = 'white';
+    return () => {
+      document.body.style.backgroundColor = '#F7F8FA';
+    }
+  }, []);
 }

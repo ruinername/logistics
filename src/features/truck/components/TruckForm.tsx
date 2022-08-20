@@ -13,6 +13,7 @@ import {
 import {Dropzone} from "../../dropzone/Dropzone";
 import DocumentsBlue from "../../../assets/icons/documents-blue.svg";
 import { useNavigate } from 'react-router-dom';
+import {useWhiteBackground} from "../../../utils";
 
 export type StepFields = ({
   name: string,
@@ -327,12 +328,14 @@ export interface TruckFormProps {
   isLoading?: boolean;
   initialValues?: any;
   isEditing?: boolean;
+  initialFiles?: any;
 }
 
 const TruckForm: React.FC<TruckFormProps> = (props) => {
+  useWhiteBackground();
   const [activeStep, setActiveStep] = React.useState('driver');
   const [values, setValues] = React.useState<any>(props.initialValues || { }); // TODO: typing
-  const [files, setFiles] = React.useState<any>({ }); // TODO: typing
+  const [files, setFiles] = React.useState<any>(props.initialFiles || { }); // TODO: typing
 
   const navigate = useNavigate();
 
@@ -394,7 +397,7 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
   }
 
   return (
-    <div style={{ minHeight: '100%' }} className="background-white">
+    <div>
       <Container className="d-flex pt-4 flex-row justify-content-between align-items-center mb40px">
         <span onClick={() => navigate(-1)} className="d-flex flex-row align-items-center pointer">
           <Back className="mr8px" />
