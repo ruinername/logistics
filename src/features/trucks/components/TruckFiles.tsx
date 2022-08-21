@@ -109,7 +109,7 @@ const TruckFiles: React.FC<TruckFilesProps> = ({ truck, tabsWithProblems, filesW
   const [activeTab, setActiveTab] = React.useState<string>('truck');
 
   const activeTabFiles = useMemo(() => (tabs.find(tab => tab.key === activeTab) as Tab).files.filter(file => truck[file]), [activeTab, truck]);
-
+  console.log(truck);
   return (
     <>
       <div className="files card-padding-h overflow-scroll d-flex flex-row">
@@ -137,7 +137,7 @@ const TruckFiles: React.FC<TruckFilesProps> = ({ truck, tabsWithProblems, filesW
                       </p>
                       <p className={`mb-0 ml16px body-m text-muted ${filesWithProblems[file] ? 'text-orange' : ''}`}>
                         {/* @ts-ignore */}
-                        {(truckFiles[file].expiration !== null && truck[truckFiles[file].expiration]) ? DateTime.fromISO(truck[file] as string).toFormat('MM / dd / yyyy') : null}
+                        {(truckFiles[file].expiration !== null && truck[truckFiles[file].expiration]) ? DateTime.fromISO(truck[truckFiles[file].expiration] as string).toFormat('MM / dd / yyyy') : null}
                       </p>
                     </div>
                   </Col>
@@ -145,7 +145,7 @@ const TruckFiles: React.FC<TruckFilesProps> = ({ truck, tabsWithProblems, filesW
                     <Link style={{ marginRight: 20 }} to={'../edit-truck/' + truck.vin}>
                       <Replay />
                     </Link>
-                    <a target="_blank" href={`${apiEndpoint}company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
+                    <a target="_blank" href={`${apiEndpoint}/company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
                       <Download />
                     </a>
                   </Col>

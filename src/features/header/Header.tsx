@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {toggleDrawer} from "../../store/drawer";
 import {useGetUserCompanyUserGetQuery, useLogOutCompanyLogOutDeleteMutation} from "../../store/api";
 import {useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
+import {Link, generatePath} from "react-router-dom";
 
 const Header = () => {
   const [logOut, { isSuccess }] = useLogOutCompanyLogOutDeleteMutation();
@@ -36,6 +36,9 @@ const Header = () => {
             </Nav>
             <Nav className="flex-row ml-md-auto d-md-flex">
               {current_user ? (<NavDropdown disabled={isMobile} title={data?.username} id="basic-nav-dropdown">
+                  <NavDropdown.Item href={generatePath('dashboard/settings')}>
+                    Company settings
+                  </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => logOut()}>
                   Logout
                 </NavDropdown.Item>

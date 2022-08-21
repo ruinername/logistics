@@ -51,7 +51,14 @@ const formConstructor: FormConstructor = {
             required: true,
             key: 'driver_name',
           },
-          null,
+          {
+            name: 'Driver password',
+            type: 'password',
+            placeholder: 'Enter driver password',
+            value: '',
+            required: true,
+            key: 'driver_password',
+          },
         ],
       ],
     },
@@ -180,7 +187,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -203,7 +210,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -226,7 +233,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -249,7 +256,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -306,7 +313,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Drug Test Expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,
@@ -329,21 +336,26 @@ export interface TruckFormProps {
   initialValues?: any;
   isEditing?: boolean;
   initialFiles?: any;
+  customForm?: FormConstructor;
+  activeStep?: string;
+  withoutSteps?: boolean;
 }
 
 const TruckForm: React.FC<TruckFormProps> = (props) => {
   useWhiteBackground();
-  const [activeStep, setActiveStep] = React.useState('driver');
+  const [activeStep, setActiveStep] = React.useState(props.activeStep || 'driver');
   const [values, setValues] = React.useState<any>(props.initialValues || { }); // TODO: typing
   const [files, setFiles] = React.useState<any>(props.initialFiles || { }); // TODO: typing
+
+  const form = useMemo(() => props.customForm || formConstructor, [props.customForm]);
 
   const navigate = useNavigate();
 
   const handleSetActiveStep = useCallback((stepId: string) => () => setActiveStep(stepId), [setActiveStep]);
 
   // @ts-ignore
-  const activeStepFields = useMemo<StepFields>(() => formConstructor.steps.find(step => step.stepId === activeStep)?.fields, [activeStep]);
-  const nextActiveField = useMemo(() => formConstructor.steps.findIndex(step => step.stepId === activeStep) + 1, [activeStep]);
+  const activeStepFields = useMemo<StepFields>(() => form.steps.find(step => step.stepId === activeStep)?.fields, [activeStep]);
+  const nextActiveField = useMemo(() => form.steps.findIndex(step => step.stepId === activeStep) + 1, [activeStep]);
 
   function renderField(field: any) {
     if (!field) return <Col />
@@ -361,7 +373,7 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
                   alt="Documents"
                 />
               </IconWithBackground>
-              <p style={{ marginLeft: 16 }} className="mb-0 body-l">{file.name}</p>
+              <p style={{ marginLeft: 16 }} className="mb-0 body-l">{file.name || field.name}</p>
             </div>
             <div onClick={() => setFiles({ ...files, [field.key]: undefined })} className="pointer">
               <IconWithBackground size={52}>
@@ -403,19 +415,21 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
           <Back className="mr8px" />
           <h2 className="mb-0">{props.title}</h2>
         </span>
-        <p className="mb-0 body-l">Step {formConstructor.steps.findIndex((step) => step.stepId === activeStep) + 1}/{formConstructor.steps.length}</p>
+        {!props.withoutSteps && <p className="mb-0 body-l">Step {form.steps.findIndex((step) => step.stepId === activeStep) + 1}/{form.steps.length}</p>}
       </Container>
       <Container className="d-flex truck-form-container">
-        <div className="steps">
-          {formConstructor.steps.map(step => (
-            <div onClick={handleSetActiveStep(step.stepId)} key={step.stepId} className={`step ${activeStep === step.stepId ? 'active' : ''}`}>
-              <div className="step-icon">
-                <step.icon />
+        {!props.withoutSteps && (
+          <div className="steps">
+            {form.steps.map(step => (
+              <div onClick={handleSetActiveStep(step.stepId)} key={step.stepId} className={`step ${activeStep === step.stepId ? 'active' : ''}`}>
+                <div className="step-icon">
+                  <step.icon />
+                </div>
+                <div className="step-title">{step.title}</div>
               </div>
-              <div className="step-title">{step.title}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          )}
         <Container>
           {activeStepFields.map((fields, idx) => (
               <Form.Group key={idx} className="mb-3">
@@ -424,8 +438,8 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
                 </Row>
               </Form.Group>
             ))}
-            {nextActiveField !== formConstructor.steps.length ? (
-              <Button className="btn-medium float-end" variant="primary" onClick={() => setActiveStep(formConstructor.steps[nextActiveField].stepId)}>Next</Button>
+            {nextActiveField !== form.steps.length ? (
+              <Button className="btn-medium float-end" variant="primary" onClick={() => setActiveStep(form.steps[nextActiveField].stepId)}>Next</Button>
             ) : (
               <Button disabled={props.isLoading} className="btn-medium float-end" variant="primary" onClick={() => props.handleSave(values, files)}>Save</Button>
             )}

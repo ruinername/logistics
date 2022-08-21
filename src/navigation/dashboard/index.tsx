@@ -6,6 +6,7 @@ import AddTruck from "./AddTruck";
 import EditTruck from "./EditTruck";
 import Home from "./Home";
 import Truck from "./Truck";
+import CompanySettings from "./CompanySettings";
 
 function DashboardNavigation() {
   const [cookies] = useCookies(['current_user']);
@@ -20,6 +21,7 @@ function DashboardNavigation() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/settings" element={<CompanySettings />} />
         <Route path="/trucks" element={<Trucks />} />
         <Route path="/add-truck" element={<AddTruck />} />
         <Route path="/edit-truck/:vin" element={<EditTruck />} />

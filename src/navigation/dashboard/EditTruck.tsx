@@ -1,7 +1,8 @@
 import React, {useCallback, useEffect} from 'react';
 import TruckForm from "../../features/truck/components/TruckForm";
 import {
-  fetchTrucks, useGetTruckByVinCompanyTruckGetTruckByVinGetQuery,
+  fetchTrucks,
+  useGetTruckByVinCompanyTruckGetTruckByVinGetQuery,
   useUpdateTruckCompanyTruckUpdateTruckPutMutation
 } from "../../store/api";
 import {keysToCamel, removeEmpty} from "../../utils";
@@ -35,10 +36,8 @@ function EditTruck() {
   }, [isSuccess]);
 
   if (!data) return null;
-  const initialFiles = data;
-
   return (
-    <TruckForm isEditing={true} initialValues={data} initialFiles={initialFiles} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
+    <TruckForm isEditing={true} initialValues={data} initialFiles={data} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
   );
 }
 
