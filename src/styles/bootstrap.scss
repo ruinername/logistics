@@ -40,6 +40,13 @@ h2 {
   line-height: 32px;
 }
 
+h3 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+}
+
 h--secondary {
   color: #{map-get($theme-colors, 'text-secondary')};
 }
@@ -244,6 +251,39 @@ body {
   text-align: center;
 }
 
+.fw-500 {
+  font-weight: 500;
+}
+
+.timeline {
+  margin-bottom: 170px;
+}
+
+.timeline-card {
+  padding: 24px;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.timeline-card .text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  margin-top: 16px;
+  color: #193856;
+}
+
+.timeline-left .t-first {
+  margin-bottom: 96px;
+}
+
+.timeline-right .t-first {
+  margin-top: 80px;
+  margin-bottom: 106px;
+}
+
 .text-muted {
   color: #{map-get($theme-colors, 'text-muted')};
 }
@@ -421,12 +461,147 @@ input[type="file"] {
   line-height: 20px;
 }
 
-@media only screen and (max-device-width: 708px) {
-  .truck .card-padding-h {
-    padding: 0 24px;
+.delete-buttons {
+  margin: 0 32px;
+  margin-bottom: 48px;
+  justify-content: center;
+}
+
+.sidebar {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+}
+
+.sidebar .content {
+  height: 100%;
+  padding: 38px 32px;
+  background-color: #{map-get($theme-colors, 'background-white')};
+  border-right: 1px solid #F0F8FB;
+}
+
+.truck-desktop-qr-margin {
+  margin-right: 60px;
+}
+
+.sidebar--menu {
+  margin-top: 58px;
+}
+
+.sidebar--button {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 26px;
+  align-items: center;
+}
+
+.sidebar--icon {
+  margin-bottom: 12px;
+}
+
+.sidebar-margin {
+  margin-right: 96px;
+}
+
+.status {
+  padding: 4px 12px;
+  gap: 4px;
+
+  background: #F0F6FC;
+  border-radius: 16px;
+}
+
+.status.problem {
+    background: #{map-get($theme-colors, 'meaning-orange-8%')};
+    color: #{map-get($theme-colors, 'meaning-orange')} !important;
+}
+
+.partners-card {
+  width: 343px;
+  height: 170px;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-radius: 12.543px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+}
+
+.partners-logo {
+  height: auto;
+  width: 280px;
+  max-height: 150px;
+}
+
+.truck-logo {
+  position: absolute;
+  left: calc(100% - 800px);
+  top: 66px;
+}
+
+.platform-info-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 24px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  max-width: 420px;
+}
+
+.block-with-truck {
+  margin-bottom: 100px;
+}
+
+.truck-logo-margin {
+  margin-bottom: 400px;
+}
+
+.vector-bg {
+  position: absolute;
+  right: -140px;
+  top: 66px;
+  z-index: -1;
+}
+
+.landing-title-and-desc {
+  max-width: 720px;
+}
+
+.contact-us {
+  margin-top: 240px;
+  margin-bottom: 100px;
+}
+
+.contact-us .heading {
+  margin-bottom: 48px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+@media (max-width: 1250px) {
+  .truck-logo {
+    left: calc(100% - 600px);
+  }
+}
+
+@media (max-width: 950px) {
+  .truck-logo {
+    left: calc(100% - 400px);
+  }
+}
+
+@media (max-width: 708px) {
+  .contact-us {
+    margin-top: 105px;
   }
   .steps {
-    margin-right: 0px;
+    margin-right: 0;
     display: flex;
     overflow: scroll;
     flex-direction: row;
@@ -453,33 +628,27 @@ input[type="file"] {
     padding: 12px 44px;
   }
 }
-
-.delete-buttons {
-  margin: 0 32px;
-  margin-bottom: 48px;
-  justify-content: center;
-}
-
-.sidebar {
-  z-index: 1000;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 96px;
-}
-
-.sidebar .content {
-  height: 100%;
-  padding: 38px 32px;
-  background-color: #{map-get($theme-colors, 'background-white')};
-  border-right: 1px solid #F0F8FB;
-}
-
-.truck-desktop-qr-margin {
-  margin-right: 60px;
-}
-
-@media only screen and (max-device-width: 767px) {
+@media (max-width: 767px) {
+  .truck-logo {
+    height: 325.57px;
+    right: 0px;
+    left: auto;
+    top: 451px;
+  }
+  .truck-logo-margin {
+    margin-bottom: 325px;
+  }
+  .truck .card-padding-h {
+    padding: 0 24px;
+  }
+  .partners-card {
+    margin-right: 0;
+    width: 100%;
+  }
+  .truck-big {
+    width: 354.07px;
+    height: 325.57px;
+  }
   .sidebar {
     width: 75%;
     left: -75%;
@@ -518,38 +687,6 @@ input[type="file"] {
   .truck-desktop-qr-margin {
     margin-right: 0px;
   }
-}
-
-.sidebar--menu {
-  margin-top: 58px;
-}
-
-.sidebar--button {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 26px;
-  align-items: center;
-}
-
-.sidebar--icon {
-  margin-bottom: 12px;
-}
-
-.sidebar-margin {
-  margin-right: 96px;
-}
-
-.status {
-  padding: 4px 12px;
-  gap: 4px;
-
-  background: #F0F6FC;
-  border-radius: 16px;
-}
-
-.status.problem {
-    background: #{map-get($theme-colors, 'meaning-orange-8%')};
-    color: #{map-get($theme-colors, 'meaning-orange')} !important;
 }
 
 @import "./fonts.scss";

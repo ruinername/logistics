@@ -58,6 +58,23 @@ export function useIsMobile() {
   return width <= 767;
 }
 
+export function useTimelineMobileLayout() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowSizeChange = () => {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', handleWindowSizeChange);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, [])
+
+  return width <= 1100;
+}
+
 export function useWhiteBackground() {
   useEffect(() => {
     document.body.style.backgroundColor = 'white';

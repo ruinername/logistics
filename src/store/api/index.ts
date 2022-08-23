@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
-export const apiEndpoint = 'http://0.0.0.0:8000/api';
-// export const apiEndpoint = 'https://docksys.co/api';
+// export const apiEndpoint = 'http://0.0.0.0:8000/api';
+export const apiEndpoint = 'https://docksys.co/api';
 
 export const injectedRtkApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -488,5 +488,5 @@ export const {
   useDriverLogoutDriverDriverLogoutDeleteMutation,
 } = injectedRtkApi;
 
-export const fetchTrucks = () => injectedRtkApi.endpoints.getTrucksCompanyTruckGetTrucksGet.initiate({ left: 0, right: 100 });
+export const fetchTrucks = () => injectedRtkApi.endpoints.getTrucksCompanyTruckGetTrucksGet.initiate({ left: 0, right: 100 }, { forceRefetch: true });
 export const fetchUser = () => injectedRtkApi.endpoints.getUserCompanyUserGet.initiate();

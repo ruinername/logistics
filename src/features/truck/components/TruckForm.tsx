@@ -157,7 +157,7 @@ const formConstructor: FormConstructor = {
               [
                 {
                   name: 'Physical damage expiration',
-                  type: 'date',
+                  type: 'datetime-local',
                   placeholder: 'Date',
                   value: '',
                   required: true,

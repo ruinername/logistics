@@ -19,6 +19,13 @@ export { ReactComponent as Burger } from './burger.svg';
 export { ReactComponent as Replay } from './replay.svg';
 export { ReactComponent as QR } from './qr.svg';
 export { ReactComponent as Link } from './link.svg';
+export { default as TruckBig } from './truck-big.svg';
+export { default as BlueBack } from './BlueBack.svg';
+export { ReactComponent as Laptop } from './laptop.svg';
+export { ReactComponent as Question } from './question.svg';
+export { Timeline } from './Timeline';
+export { ReactComponent as DocumentOrange } from './document-orange.svg';
+export { ReactComponent as CheckShield } from './check-shield.svg';
 export { AllCategories } from './AllCategories';
 export { SidebarTruck } from './SidebarTruck';
 

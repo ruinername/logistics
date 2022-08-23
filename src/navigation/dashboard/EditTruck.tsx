@@ -21,11 +21,12 @@ function EditTruck() {
   const handleUpdateTruck = useCallback((values: any, files: any) => {
     let data = new FormData();
     Object.entries(files).forEach(([key, file]: any) => {
+      console.log(file, file instanceof File);
       if (file instanceof File) {
         data.append(key, file);
       }
     });
-    updateTruck({ ...keysToCamel(removeEmpty(values)), bodyCreateNewTruckCompanyTruckCreateNewTruckPost: data });
+    updateTruck({ ...keysToCamel(removeEmpty(values)), bodyUpdateTruckCompanyTruckUpdateTruckPut: data });
   }, [updateTruck]);
 
   useEffect(() => {
