@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import TruckForm from "../../features/truck/components/TruckForm";
-import {fetchTrucks, useCreateNewTruckCompanyTruckCreateNewTruckPostMutation} from "../../store/api";
-import {keysToCamel} from "../../utils";
+import { fetchTrucks, useCreateNewTruckCompanyTruckCreateNewTruckPostMutation } from "../../store/api";
+import {keysToCamel, removeEmpty} from "../../utils";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
@@ -18,7 +18,7 @@ function AddTruck() {
         data.append(key, file);
       }
     });
-    addTruck({ ...keysToCamel(values), bodyCreateNewTruckCompanyTruckCreateNewTruckPost: data });
+    addTruck({ ...keysToCamel(removeEmpty(values)), bodyCreateNewTruckCompanyTruckCreateNewTruckPost: data });
   }, [addTruck]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function AddTruck() {
   }, [isSuccess]);
 
   return (
-    <TruckForm isLoading={isLoading} title="Adding a truck" handleSave={handleAddTruck} />
+    <TruckForm vinIsRequired isLoading={isLoading} title="Adding a truck" handleSave={handleAddTruck} />
   );
 }
 

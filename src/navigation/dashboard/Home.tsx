@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Card, Col, Container, Row} from "react-bootstrap";
-import {useGetTrucksCompanyTruckGetTrucksGetQuery, useGetUserCompanyUserGetQuery} from "../../store/api";
+import {apiEndpoint, useGetTrucksCompanyTruckGetTrucksGetQuery, useGetUserCompanyUserGetQuery} from "../../store/api";
 import {DateTime} from "luxon";
 import {verifyIsTruckOk} from "../../features/trucks/components/TruckFiles";
+import {Download, IconWithBackground, DocumentsBlue, Pen} from "../../assets/icons";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import {Link} from "react-router-dom";
+
+ChartJS.register(ArcElement);
 
 const datesMap = [
   {
@@ -31,6 +37,36 @@ function Home() {
   const { data, refetch } = useGetUserCompanyUserGetQuery();
   const { data: trucks } = useGetTrucksCompanyTruckGetTrucksGetQuery({ left: 0, right: 100 });
 
+  const goodTrucks = useMemo(() => trucks?.series?.map((truck) => verifyIsTruckOk(truck).isOk).filter(truck => truck).length, [trucks]);
+
+  const pieData = {
+    labels: ['Good', 'With issues'],
+    weight: 0.1,
+    datasets: [
+      {
+        data: [goodTrucks, (trucks?.number_of_trucks || 0) - (goodTrucks || 0)],
+        backgroundColor: [
+          '#3F8CD6',
+          '#F9BC61',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    rotation: 270,
+    circumference: 180,
+    legend: {
+      display: false
+    },
+    tooltip: {
+      enabled: false
+    },
+    cutoutPercentage: 95,
+    aspectRatio: 2
+  };
+
   if (!data) return null;
 
   return (
@@ -38,8 +74,13 @@ function Home() {
       <Card>
         <Card.Body style={{ paddingLeft: 40, paddingRight: 40 }} className="truck">
           <Row>
-            <Col md={6}>
+            <Col className="d-flex flex-row" md={6}>
               <h4>{data.username}</h4>
+              <Link to={'/dashboard/settings'}>
+                <div style={{ marginLeft: 32 }}>
+                  <Pen />
+                </div>
+              </Link>
             </Col>
             <Col md={5}>
               {datesMap.map(date => {
@@ -59,6 +100,25 @@ function Home() {
               })}
             </Col>
           </Row>
+          <div className="d-flex flex-row align-items-center">
+            <IconWithBackground>
+              <DocumentsBlue />
+            </IconWithBackground>
+            <Row className="container-fluid">
+              <Col md={6}>
+                <div>
+                  <p className="mb-0 ml16px body-l">
+                    Company insurance
+                  </p>
+                </div>
+              </Col>
+              <Col md={3}>
+                <a target="_blank" href={`${apiEndpoint}/company/get_company_file`}>
+                  <Download />
+                </a>
+              </Col>
+            </Row>
+          </div>
         </Card.Body>
       </Card>
       {trucks && <Card>
@@ -74,6 +134,7 @@ function Home() {
               </div>
             </div>
           </div>
+          <Doughnut data={pieData} options={options} />
           <div className="d-flex flex-column align-items-center">
             <h1>{trucks?.series?.map((truck) => verifyIsTruckOk(truck).isOk).filter(truck => truck).length} trucks</h1>
             <h2 className="text-neutral">from {trucks.number_of_trucks}</h2>

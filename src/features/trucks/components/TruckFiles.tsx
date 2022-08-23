@@ -145,7 +145,7 @@ const TruckFiles: React.FC<TruckFilesProps> = ({ truck, tabsWithProblems, filesW
                     <Link style={{ marginRight: 20 }} to={'../edit-truck/' + truck.vin}>
                       <Replay />
                     </Link>
-                    <a target="_blank" href={`${apiEndpoint}/company_truck/get_truck_file/?vin=${truck.vin}&filename=${file}`}>
+                    <a target="_blank" href={`${apiEndpoint}/company_truck/get_truck_file_without_login/?vin=${truck.vin}&filename=${file}`}>
                       <Download />
                     </a>
                   </Col>

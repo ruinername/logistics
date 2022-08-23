@@ -339,6 +339,8 @@ export interface TruckFormProps {
   customForm?: FormConstructor;
   activeStep?: string;
   withoutSteps?: boolean;
+  disableVin?: boolean;
+  vinIsRequired?: boolean;
 }
 
 const TruckForm: React.FC<TruckFormProps> = (props) => {
@@ -403,10 +405,12 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
     return (
       <Col xl key={field.key}>
         <Form.Label>{field.name}</Form.Label>
-        <Form.Control onChange={e => setValues({ ...values, [field.key]: e.target.value })} value={values[field.key] || ''} type={field.type} placeholder={field.placeholder} />
+        <Form.Control aria-required={field.required} disabled={field.key === 'vin' && props.disableVin} onChange={e => setValues({ ...values, [field.key]: e.target.value })} value={values[field.key] || ''} type={field.type} placeholder={field.placeholder} />
       </Col>
     )
   }
+
+  const needVin = props.vinIsRequired && ['truck', 'drug_test_status'].includes(activeStep) && !values.vin;
 
   return (
     <div>
@@ -439,9 +443,9 @@ const TruckForm: React.FC<TruckFormProps> = (props) => {
               </Form.Group>
             ))}
             {nextActiveField !== form.steps.length ? (
-              <Button className="btn-medium float-end" variant="primary" onClick={() => setActiveStep(form.steps[nextActiveField].stepId)}>Next</Button>
+              <Button disabled={needVin} className="btn-medium float-end" variant="primary" onClick={() => setActiveStep(form.steps[nextActiveField].stepId)}>{needVin ? 'VIN is required' : 'Next'}</Button>
             ) : (
-              <Button disabled={props.isLoading} className="btn-medium float-end" variant="primary" onClick={() => props.handleSave(values, files)}>Save</Button>
+              <Button disabled={props.isLoading || needVin} className="btn-medium float-end" variant="primary" onClick={() => props.handleSave(values, files)}>{needVin ? 'VIN is required' : 'Save'}</Button>
             )}
         </Container>
       </Container>

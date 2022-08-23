@@ -20,13 +20,13 @@ function EditTruck() {
 
   const handleUpdateTruck = useCallback((values: any, files: any) => {
     let data = new FormData();
+    let hasFiles = Object.values(files).find((file: any) => file instanceof File);
     Object.entries(files).forEach(([key, file]: any) => {
-      console.log(file, file instanceof File);
       if (file instanceof File) {
         data.append(key, file);
       }
     });
-    updateTruck({ ...keysToCamel(removeEmpty(values)), bodyUpdateTruckCompanyTruckUpdateTruckPut: data });
+    updateTruck({ ...keysToCamel(removeEmpty(values)), bodyUpdateTruckCompanyTruckUpdateTruckPut: hasFiles ? data : undefined });
   }, [updateTruck]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function EditTruck() {
 
   if (!data) return null;
   return (
-    <TruckForm isEditing={true} initialValues={data} initialFiles={data} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
+    <TruckForm disableVin isEditing={true} initialValues={data} initialFiles={data} isLoading={isLoading} title="Edit a truck" handleSave={handleUpdateTruck} />
   );
 }
 

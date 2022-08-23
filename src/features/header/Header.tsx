@@ -28,6 +28,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+              {current_user && !isMobile && <Nav.Link className="text-primary" href={generatePath('/dashboard')}>Dashboard</Nav.Link>}
               {isMobile && (
                 <div onClick={() => dispatch(toggleDrawer())}>
                   <Burger />
@@ -36,7 +37,7 @@ const Header = () => {
             </Nav>
             <Nav className="flex-row ml-md-auto d-md-flex">
               {current_user ? (<NavDropdown disabled={isMobile} title={data?.username} id="basic-nav-dropdown">
-                  <NavDropdown.Item href={generatePath('dashboard/settings')}>
+                  <NavDropdown.Item href={generatePath('../dashboard/settings')}>
                     Company settings
                   </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => logOut()}>

@@ -110,12 +110,13 @@ const CompanySettings: React.FC = () => {
 
   const handleUpdateCompany = useCallback((values: any, files: any) => {
     let data = new FormData();
+    let hasFiles = Object.values(files).find((file: any) => file instanceof File);
     Object.entries(files).forEach(([key, file]: any) => {
       if (file instanceof File) {
         data.append(key, file);
       }
     });
-    updateCompany({ ...keysToCamel(removeEmpty(values)), bodyCreateNewTruckCompanyTruckCreateNewTruckPost: data });
+    updateCompany({ ...keysToCamel(removeEmpty(values)), bodyUpdateCompanyCompanyUpdateCompanyPut: hasFiles ? data : undefined });
   }, [updateCompany]);
 
   useEffect(() => {

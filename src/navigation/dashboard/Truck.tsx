@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
 import {
-  useGetTruckByVinCompanyTruckGetTruckByVinGetQuery,
+  useGetTruckByVinCompanyTruckGetTruckByVinWithoutLoginGetQuery,
 } from "../../store/api";
 import TruckCard from "../../features/trucks/components/TruckCard";
 import {Link, useParams} from "react-router-dom";
@@ -9,7 +9,7 @@ import {Link, useParams} from "react-router-dom";
 function Truck() {
   const { vin } = useParams();
   // @ts-ignore
-  const { data, refetch } = useGetTruckByVinCompanyTruckGetTruckByVinGetQuery({ vin });
+  const { data, refetch } = useGetTruckByVinCompanyTruckGetTruckByVinWithoutLoginGetQuery({ vin });
 
   return (
     <Container className="cont--fluid pt-5">

@@ -12,7 +12,7 @@ function DashboardNavigation() {
   const [cookies] = useCookies(['current_user']);
 
   useEffect(() => {
-    if (!cookies.current_user) {
+    if (!cookies.current_user && window.location.href.indexOf('dashboard/truck/') === -1) {
       window.location.href = '/sign-in';
     }
   }, [cookies.current_user]);

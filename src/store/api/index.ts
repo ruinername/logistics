@@ -87,14 +87,14 @@ export const injectedRtkApi = createApi({
               truck_inspection_expiration: queryArg.truckInspectionExpiration,
               phycisal_damage_file: queryArg.phycisalDamageFile,
               physical_damage_expiration: queryArg.physicalDamageExpiration,
-              NY: queryArg.ny,
-              NY_file: queryArg.nyFile,
-              KY: queryArg.ky,
-              KY_file: queryArg.kyFile,
-              NM: queryArg.nm,
-              NM_file: queryArg.nmFile,
-              OR: queryArg.or,
-              OR_file: queryArg.orFile,
+              NY: queryArg.NY,
+              NY_file: queryArg.NYFile,
+              KY: queryArg.KY,
+              KY_file: queryArg.KYFile,
+              NM: queryArg.NM,
+              NM_file: queryArg.NMFile,
+              OR: queryArg.OR,
+              OR_file: queryArg.ORFile,
               leaser_and_borrower_file: queryArg.leaserAndBorrowerFile,
               driver_and_company_file: queryArg.driverAndCompanyFile,
               random_drug_test_exparation: queryArg.randomDrugTestExparation,
@@ -125,14 +125,14 @@ export const injectedRtkApi = createApi({
               truck_inspection_expiration: queryArg.truckInspectionExpiration,
               phycisal_damage_file: queryArg.phycisalDamageFile,
               physical_damage_expiration: queryArg.physicalDamageExpiration,
-              NY: queryArg.ny,
-              NY_file: queryArg.nyFile,
-              KY: queryArg.ky,
-              KY_file: queryArg.kyFile,
-              NM: queryArg.nm,
-              NM_file: queryArg.nmFile,
-              OR: queryArg.or,
-              OR_file: queryArg.orFile,
+              NY: queryArg.NY,
+              NY_file: queryArg.NYFile,
+              KY: queryArg.KY,
+              KY_file: queryArg.KYFile,
+              NM: queryArg.NM,
+              NM_file: queryArg.NMFile,
+              OR: queryArg.OR,
+              OR_file: queryArg.ORFile,
               leaser_and_borrower_file: queryArg.leaserAndBorrowerFile,
               driver_and_company_file: queryArg.driverAndCompanyFile,
               random_drug_test_exparation: queryArg.randomDrugTestExparation,
@@ -174,12 +174,21 @@ export const injectedRtkApi = createApi({
             params: { vin: queryArg.vin },
           }),
         }),
+        getTruckByVinCompanyTruckGetTruckByVinWithoutLoginGet: build.query<
+          GetTruckByVinCompanyTruckGetTruckByVinGetApiResponse,
+          GetTruckByVinCompanyTruckGetTruckByVinGetApiArg
+          >({
+          query: (queryArg) => ({
+            url: `/company_truck/get_truck_by_vin_without_login/`,
+            params: { vin: queryArg.vin },
+          }),
+        }),
         getTruckFileCompanyTruckGetTruckFileGet: build.query<
           GetTruckFileCompanyTruckGetTruckFileGetApiResponse,
           GetTruckFileCompanyTruckGetTruckFileGetApiArg
           >({
           query: (queryArg) => ({
-            url: `/company_truck/get_truck_file/`,
+            url: `/company_truck/get_truck_file_without_login/`,
             params: { vin: queryArg.vin, filename: queryArg.filename },
           }),
         }),
@@ -269,14 +278,14 @@ export const injectedRtkApi = createApi({
       truckInspectionExpiration?: string;
       phycisalDamageFile?: string;
       physicalDamageExpiration?: string;
-      ny?: string;
-      nyFile?: string;
-      ky?: string;
-      kyFile?: string;
-      nm?: string;
-      nmFile?: string;
-      or?: string;
-      orFile?: string;
+      NY?: string;
+      NYFile?: string;
+      KY?: string;
+      KYFile?: string;
+      NM?: string;
+      NMFile?: string;
+      OR?: string;
+      ORFile?: string;
       leaserAndBorrowerFile?: string;
       driverAndCompanyFile?: string;
       randomDrugTestExparation?: string;
@@ -298,14 +307,14 @@ export const injectedRtkApi = createApi({
       truckInspectionExpiration?: string;
       phycisalDamageFile?: string;
       physicalDamageExpiration?: string;
-      ny?: string;
-      nyFile?: string;
-      ky?: string;
-      kyFile?: string;
-      nm?: string;
-      nmFile?: string;
-      or?: string;
-      orFile?: string;
+      NY?: string;
+      NYFile?: string;
+      KY?: string;
+      KYFile?: string;
+      NM?: string;
+      NMFile?: string;
+      OR?: string;
+      ORFile?: string;
       leaserAndBorrowerFile?: string;
       driverAndCompanyFile?: string;
       randomDrugTestExparation?: string;
@@ -480,6 +489,7 @@ export const {
   useDeleteTruckByVinCompanyTruckDeleteTruckByVinDeleteMutation,
   useGetTrucksCompanyTruckGetTrucksGetQuery,
   useGetTruckByVinCompanyTruckGetTruckByVinGetQuery,
+  useGetTruckByVinCompanyTruckGetTruckByVinWithoutLoginGetQuery,
   useGetTruckFileCompanyTruckGetTruckFileGetQuery,
   useDriverLoginDriverDriverLoginPostMutation,
   useGetCurrentDrivDriverGetCurrentDriverGetQuery,
