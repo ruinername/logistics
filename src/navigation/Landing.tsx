@@ -124,14 +124,8 @@ function Landing() {
         <div className="partners-card">
           <img className="partners-logo" src={require('../assets/images/2.png')} alt=""/>
         </div>
-        <div className="partners-card">
-          <img className="partners-logo" src={require('../assets/images/3.png')} alt=""/>
-        </div>
       </div>
       <div className="d-flex flex-row flex-wrap justify-content-center align-items-center">
-        <div className="partners-card">
-          <img className="partners-logo" src={require('../assets/images/4.png')} alt=""/>
-        </div>
         <div className="partners-card">
           <img className="partners-logo" src={require('../assets/images/5.png')} alt=""/>
         </div>

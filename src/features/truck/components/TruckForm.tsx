@@ -53,7 +53,7 @@ const formConstructor: FormConstructor = {
           },
           {
             name: 'Driver password',
-            type: 'password',
+            type: 'text',
             placeholder: 'Enter driver password',
             value: '',
             required: true,

@@ -22,7 +22,7 @@ const Sidebar = () => {
       {isMobile && <div onClick={() => dispatch(toggleDrawer())} className={`sidebar--opacity ${isDrawerOpened ? 'toggled' : ''}`} />}
       <div className={`sidebar ${isDrawerOpened ? 'toggled' : ''}`}>
         <div className="content">
-          <h2>LG</h2>
+          <img src={require('../../assets/images/logo.jpg')} width={32} height={32} />
           <div className="sidebar--menu">
             <Link to={'/dashboard'}>
               <div className={`sidebar--button pointer ${isHomeActive ? 'active' : ''}`}>
