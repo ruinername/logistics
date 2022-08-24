@@ -137,7 +137,7 @@ function Home() {
           </div>
           <div style={{ height: 300 }}>
             <Doughnut data={pieData} options={options} />
-          <div/>
+          </div>
           <div className="d-flex flex-column align-items-center">
             <h1>{trucks?.series?.map((truck) => verifyIsTruckOk(truck).isOk).filter(truck => truck).length} trucks</h1>
             <h2 className="text-neutral">from {trucks.number_of_trucks}</h2>
